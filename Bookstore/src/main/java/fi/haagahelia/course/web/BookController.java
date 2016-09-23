@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import fi.haagahelia.course.web.CategoryRepository;
 import fi.haagahelia.course.web.Book;
 import fi.haagahelia.course.web.BookRepository;
 
@@ -15,6 +16,9 @@ public class BookController {
 
 	@Autowired
 	private BookRepository repository; 
+	
+	@Autowired
+	private CategoryRepository crepository; 
 	
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	
@@ -32,6 +36,7 @@ public class BookController {
 	@RequestMapping(value = "/add")
     public String addBook(Model model){
     	model.addAttribute("book", new Book());
+    	model.addAttribute("categories", crepository.findAll());
         return "addbook";
     }     
 	

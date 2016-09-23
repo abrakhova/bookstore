@@ -7,8 +7,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+
 import fi.haagahelia.course.web.BookRepository;
 import fi.haagahelia.course.web.Book;
+import fi.haagahelia.course.web.CategoryRepository;
+import fi.haagahelia.course.web.Category;
 
 @SpringBootApplication
 public class BookstoreApplication {
@@ -21,11 +24,15 @@ public class BookstoreApplication {
 	
 	
 	@Bean
-	public CommandLineRunner bookDemo(BookRepository repository) {
+	public CommandLineRunner bookDemo(BookRepository repository, CategoryRepository crepository) {
 		return (args) -> {
 			log.info("save a couple of books");
-			repository.save(new Book("Adventures of Tim", "Jack London", 1991, "Isbn1", 250));
-			repository.save(new Book("California", "Author2", 1992, "Isbn2", 300));	
+			crepository.save(new Category("Sci-Fi"));
+			crepository.save(new Category("Marvel"));
+			crepository.save(new Category("Novel"));
+			
+			repository.save(new Book("Adventures of Tim", "Jack London", 1991, "Isbn1", 250, crepository.findByName("Marvel").get(0)));
+			repository.save(new Book("California", "Author2", 1992, "Isbn2", 300, crepository.findByName("Marvel").get(0)));	
 			
 			log.info("fetch all books");
 			for (Book book : repository.findAll()) {
