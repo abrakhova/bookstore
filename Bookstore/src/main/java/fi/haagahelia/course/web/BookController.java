@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 import fi.haagahelia.course.web.CategoryRepository;
 import fi.haagahelia.course.web.Book;
 import fi.haagahelia.course.web.BookRepository;
@@ -30,6 +29,12 @@ public class BookController {
 		{
 			return "hello";
 		}
+	
+	// Show all books
+    @RequestMapping(value="/login")
+    public String login() {	
+        return "login";
+    }	
 	
 	@RequestMapping(value="/booklist", method=RequestMethod.GET)
     public String bookList(Model model) {	
